@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
+import {Storage} from '@ionic/storage-angular'
+import { Lecture } from '../models/lecture';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -11,15 +13,18 @@ export class Tab1Page implements OnInit {
   
   
   
-  constructor(private navCtrl:NavController, private dataService:DataService) {
+  constructor(private navCtrl:NavController, private dataService:DataService, private storage: Storage) {
 
   }
   
-  ngOnInit() {
-    this.dataService.load();
+  async ngOnInit() {
+    await this.storage.create()
+    await this.dataService.setUpData();
+    await this.dataService.load();
+    
 
   }
-  addComment(lecture){
+  addComment(lecture: Lecture){
     this.navCtrl.navigateForward(['/tabs/lecture-detail',{id: lecture.id}])
   }
 

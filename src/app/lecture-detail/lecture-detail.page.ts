@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { parse } from 'url';
+import { Lecture } from '../models/lecture';
 import { DataService } from '../services/data.service';
 
 
@@ -11,16 +13,18 @@ import { DataService } from '../services/data.service';
 })
 export class LectureDetailPage implements OnInit {
 
-  private lecture : {id: number, name: string , date: string,  lecturer: string, comment:string, personalComment:string};
+  private lecture : Lecture;
 
   constructor(private route: ActivatedRoute,private navCtrl:NavController, private dataService:DataService) { 
-    this.lecture = {id:0, name: '' , date: '',  lecturer: '', comment:'', personalComment:''};
+    this.lecture = new Lecture();
   }
 
   ngOnInit() {
     const identifier = this.route.snapshot.paramMap.get('id');
     if(identifier != null){
-      this.lecture = this.dataService.get(identifier);
+      const item = this.dataService.get(parseInt(identifier, 10));
+
+      this.lecture =JSON.parse(JSON.stringify(item));
       console.log(this.lecture)
     }
     console.log('Lecture: ' + identifier);
