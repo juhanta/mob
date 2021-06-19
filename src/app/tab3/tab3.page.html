@@ -1,17 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title> Tab 3 </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Märkmed</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-list>
+    <ion-item-group *ngFor="let lecture of dataService.lectures">
+      <ion-item-group *ngIf="lecture.personalComment != null">
+        <ion-header ><h3>{{lecture.name}}</h3></ion-header>
+        <ion-label>{{lecture.date.toLocaleDateString('en-GB')}}</ion-label>
+      <ion-label>Märkmed:{{lecture.personalComment}} 
+      </ion-label>
+      <ion-icon name="trash" size="large" (click)="deleteComment(lecture)"></ion-icon>
+      </ion-item-group>
+    </ion-item-group>
+  </ion-list>
 </ion-content>

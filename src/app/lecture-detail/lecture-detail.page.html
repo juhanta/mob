@@ -3,19 +3,19 @@
     <ion-buttons slot="start">
       <ion-back-button type="reset" defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
-    <ion-title>lectureDetail</ion-title>
+    <ion-title>Loeng</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label position="floating">{{lecture.name}}</ion-label>
-      <ion-label position="floating">{{lecture.lecturer}}</ion-label>
-      <ion-label position="floating">{{lecture.comment}}</ion-label>
-      <ion-label position="floating">Personal Comment</ion-label>
-      <ion-input [(ngModel)]="lecture.personalComment" type="text"></ion-input>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+      <ion-card-title >{{lecture.name}}</ion-card-title>
+      <ion-label >Õppejõud : {{lecture.lecturer}}</ion-label>
+      <ion-card-header ></ion-card-header>
+      <ion-label>Õppejõu kommentaar:</ion-label>
+      <ion-card-subtitle >{{lecture.comment}}</ion-card-subtitle>
+      <ion-label>Märkmed:</ion-label>
+      <ion-textarea [(ngModel)]="lecture.personalComment" type="textarea" placeholder="märkmed"></ion-textarea>
+  </ion-card>
   <ion-button expand="full" (click)="save()">Save</ion-button>
 </ion-content>

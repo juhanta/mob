@@ -13,16 +13,16 @@ export class DataService {
   public startDates = [];
   constructor(private storage: Storage) { }
 
-  private mock = [{"id":1,"name":"Firat (Euphrates) University","date":"2021-06-16T12:20:31Z", "duration":45, "lecturer":"Kellsie Skyner","comment":null,"personalComment":"55"},
-  {"id":2,"name":"Université de Ngaoundéré","date":"2021-06-16T14:20:31Z", "duration":45,"lecturer":"Ddene Blacksell","comment":null,"personalComment":null},
-  {"id":3,"name":"Universitas Kristen Petra","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Filmore Agron","comment":null,"personalComment":null},
-  {"id":4,"name":"Nakamura Gakuen University","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Melisandra Dyshart","comment":null,"personalComment":null},
-  {"id":5,"name":"Miyazaki University","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Uta Boncoeur","comment":null,"personalComment":null},
-  {"id":6,"name":"Central Buganda University","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Stacee Bruckmann","comment":null,"personalComment":null},
-  {"id":7,"name":"Royal University of Agriculture","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Gerald Nevison","comment":null,"personalComment":null},
-  {"id":8,"name":"Military Institute of Science and Technology","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Mahmoud Benyan","comment":null,"personalComment":null},
-  {"id":9,"name":"Webster University, Vienna","date":"2021-06-17T12:20:31Z", "duration":45,"lecturer":"Justine Pantone","comment":null,"personalComment":null},
-  {"id":10,"name":"Guangzhou Normal University","date":"2021-06-17T12:20:31Z", "duration":45,"lecturer":"Olympie Chaize","comment":null,"personalComment":null},];
+  private mock = [{"id":1,"name":"Programmeerimine","date":"2021-06-16T12:20:31Z", "duration":45, "lecturer":"Kellsie Skyner","comment":null,"personalComment":"Tunnitöö lõpetada"},
+  {"id":2,"name":"Kasutajaliidese disain","date":"2021-06-16T14:20:31Z", "duration":45,"lecturer":"Ddene Blacksell","comment":null,"personalComment":null},
+  {"id":3,"name":"ELU","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Filmore Agron","comment":null,"personalComment":null},
+  {"id":4,"name":"Mobiilirakenduste arendamine","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Melisandra Dyshart","comment":null,"personalComment":null},
+  {"id":5,"name":"Mobiilirakenduste arendamine","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Uta Boncoeur","comment":null,"personalComment":null},
+  {"id":6,"name":"Programmeerimine","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Stacee Bruckmann","comment":null,"personalComment":null},
+  {"id":7,"name":"Inglise keel","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Gerald Nevison","comment":null,"personalComment":null},
+  {"id":8,"name":"Inglise keel","date":"2021-06-16T12:20:31Z", "duration":45,"lecturer":"Mahmoud Benyan","comment":null,"personalComment":null},
+  {"id":9,"name":"Inglise keel","date":"2021-06-17T12:20:31Z", "duration":45,"lecturer":"Justine Pantone","comment":null,"personalComment":null},
+  {"id":10,"name":"Programmeerimine","date":"2021-06-17T13:20:31Z", "duration":45,"lecturer":"Olympie Chaize","comment":null,"personalComment":null},];
 
   async setUpData(){
     await this.storage.set('lectures', this.mock)
@@ -63,6 +63,11 @@ export class DataService {
     
   }
 
+  deleteComment(lecture) {
+    const index = this.getIndex(lecture.id);
+    this.lectures[index].personalComment = null;
+    
+  }
 
   save(lecture: Lecture){
     const index = this.getIndex(lecture.id);
@@ -73,8 +78,12 @@ export class DataService {
     else{ 
       console.log("Save comment")
       this.lectures[index] = lecture;
+      this.lectures[index].date = new Date(this.lectures[index].date)
     }
     this.storage.set('lectures', this.lectures);
     
   }
 }
+
+
+
